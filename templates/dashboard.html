@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+	<style>
+		body {
+			font-family: 'Montserrat', sans-serif;
+			background: radial-gradient(circle, rgba(230,245,245,1) 0%, rgba(187,232,240,1) 40%, rgba(141,208,219,1) 100%);
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		h1 {
+			color: #fff;
+			font-size: 3em;
+			text-align: center;
+			margin-top: 50px;
+			text-shadow: 2px 2px #333;
+		}
+		.container {
+			background-color: rgba(255, 255, 255, 0.8);
+			padding: 20px;
+			margin: 50px auto;
+			max-width: 600px;
+			border-radius: 20px;
+			box-shadow: 0 0 10px rgba(0,0,0,0.1);
+			text-align: center;
+		}
+		.btn {
+			background-color: #333;
+			color: #fff;
+			padding: 10px 20px;
+			border-radius: 5px;
+			border: none;
+			cursor: pointer;
+			margin-top: 20px;
+			display: inline-block;
+			font-size: 18px;
+			transition: background-color 0.3s ease;
+			text-decoration: none;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			font-weight: bold;
+			box-shadow: 2px 2px #333;
+		}
+		.btn:hover {
+			background-color: #555;
+		}
+		p {
+			font-size: 1.2em;
+			line-height: 1.5em;
+			margin-bottom: 20px;
+			color: #333;
+			text-shadow: 1px 1px #fff;
+		}
+	</style>
+</head>
+<body>
+	<h1>Welcome to the dashboard!</h1>
+	<div class="container">
+		<p>Hello <span style="color: #ff69b4;">{{name}}</span></p>
+		<p>Email: <span style="color: #ff69b4;">{{email}}</span></p>
+		<p>IP Address: <span style="color: #ff69b4;">{{ip_address}}</span></p>
+		<p>User Agent: <span style="color: #ff69b4;">{{user_agent}}</span></p>
+		<p>Last Login: <span style="color: #ff69b4;">{{last_login}}</span></p>
+		<a class="btn" href="/logout">Logout</a>
+	</div>
+</body>
+</html>
