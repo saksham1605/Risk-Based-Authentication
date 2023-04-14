@@ -34,9 +34,9 @@ import geoip2.database
 
 # Load the GeoLite2 database
 reader = geoip2.database.Reader('GeoLite2-Country_20230414/GeoLite2-Country.mmdb')
-response = reader.country('27.97.159.92')
+response = reader.country('103.21.124.77')
 print(response.country.iso_code)
 reader = geoip2.database.Reader('GeoLite2-ASN_20230414/GeoLite2-ASN.mmdb')
-response = reader.asn('27.97.159.92')
+response = reader.asn('103.21.124.77')
 print(response.autonomous_system_number)
 

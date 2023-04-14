@@ -40,6 +40,7 @@ def getasn_fromip(ip_address):
     except:
         country_code='US'
         asn_number=0
+    print(country_code,asn_number)
     return [int(asn_number),country_code]
 
 def convertToSeconds(s):
