@@ -172,7 +172,7 @@ def login():
             # Store the user details in the session
             session['email'] = email
             session['name'] = users[email]['name']
-            ip=get_ip()
+            ip=get_ip()[0]
             session['ip_address'] = ip
             print(ip)
             session['user_agent'] = get_user_agent()
