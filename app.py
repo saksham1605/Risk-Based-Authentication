@@ -176,7 +176,7 @@ def login():
             session['ip_address'] = ip
             print(ip)
             session['user_agent'] = get_user_agent()
-            lastlogin=datetime.datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%Y-%m-%d %H:%M:%S.%f')
+            lastlogin=datetime.datetime.now(pytz.timezone('US/Eastern')).strftime('%Y-%m-%d %H:%M:%S.%f')
             session['last_login'] = lastlogin
             verification_code = random.randint(100000, 999999)
             session['verification_code']=verification_code
