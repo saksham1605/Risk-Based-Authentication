@@ -19,7 +19,7 @@ app.secret_key = os.urandom(24)
 
 # Function to get the user's IP address
 def get_ip():
-    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    ip = request.remote_addr
     return ip
 
 def getasn_fromip(ip_address):
