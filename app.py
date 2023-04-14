@@ -10,6 +10,7 @@ import pickle
 import pandas as pd
 from category_encoders.one_hot import OneHotEncoder
 from users import users
+import geoip2.database
 
 
 app = Flask(__name__)
@@ -22,14 +23,23 @@ def get_ip():
     return ip
 
 def getasn_fromip(ip_address):
-    response = requests.get(f'https://ipinfo.io/{ip_address}')
-    if 'bogon' in response.json():
-        if(response.json()['bogon']==True):
-            return [int('0'),'US']
-    asn_number = response.json()['org']
-    asn_number=asn_number.split()[0][2:]
-    country_code = response.json()['country']
-    
+    # response = requests.get(f'https://ipinfo.io/{ip_address}')
+    # if 'bogon' in response.json():
+    #     if(response.json()['bogon']==True):
+    #         return [int('0'),'US']
+    # asn_number = response.json()['org']
+    # asn_number=asn_number.split()[0][2:]
+    # country_code = response.json()['country']
+    reader = geoip2.database.Reader('GeoLite2-Country_20230414/GeoLite2-Country.mmdb')
+    try:
+        response = reader.country(ip_address)
+        country_code=response.country.iso_code
+        reader = geoip2.database.Reader('GeoLite2-ASN_20230414/GeoLite2-ASN.mmdb')
+        response = reader.asn(ip_address)
+        asn_number=response.autonomous_system_number
+    except:
+        country_code='US'
+        asn_number=0
     return [int(asn_number),country_code]
 
 def convertToSeconds(s):

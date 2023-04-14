@@ -20,12 +20,23 @@
 #     print(temp,temp1,device_type)
 # parse_useragent()
 
-import re
+# import re
 
-string = "Firefox 20.0.0.1843"
-pattern = r"\d\.*"
-replacement = ""
+# string = "Firefox 20.0.0.1843"
+# pattern = r"\d\.*"
+# replacement = ""
 
-new_string = re.sub(pattern, replacement, string)
+# new_string = re.sub(pattern, replacement, string)
 
-print(new_string)
+# print(new_string)
+
+import geoip2.database
+
+# Load the GeoLite2 database
+reader = geoip2.database.Reader('GeoLite2-Country_20230414/GeoLite2-Country.mmdb')
+response = reader.country('27.97.159.92')
+print(response.country.iso_code)
+reader = geoip2.database.Reader('GeoLite2-ASN_20230414/GeoLite2-ASN.mmdb')
+response = reader.asn('27.97.159.92')
+print(response.autonomous_system_number)
+
