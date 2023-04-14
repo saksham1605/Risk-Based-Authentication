@@ -23,8 +23,9 @@ def get_ip():
 
 def getasn_fromip(ip_address):
     response = requests.get(f'https://ipinfo.io/{ip_address}')
-    if(response.json()['bogon']==True):
-        return [int('0'),'US']
+    if 'bogon' in response.json():
+        if(response.json()['bogon']==True):
+            return [int('0'),'US']
     asn_number = response.json()['org']
     asn_number=asn_number.split()[0][2:]
     country_code = response.json()['country']
