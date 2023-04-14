@@ -20,7 +20,6 @@ app.secret_key = os.urandom(24)
 # Function to get the user's IP address
 def get_ip():
     ip = request.remote_addr
-    print(ip)
     return ip
 
 def getasn_fromip(ip_address):
@@ -154,13 +153,14 @@ def getdataframe(timestamp,ip,country,asn,browsername,osname,devicetype,loginsuc
     df1 = pd.concat([df1,le9.transform(df1['Browser Name and Version'])],axis=1)
     df1.drop('Browser Name and Version',axis=1,inplace=True)
     df1.drop('IP Address',axis=1,inplace=True)
-    print(df1.columns)
     return df1
     
     
 @app.route('/', methods=['GET', 'POST'])
 def login():
     error = None
+    if request.method=='GET':
+        session.clear()
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -173,8 +173,9 @@ def login():
             session['email'] = email
             session['name'] = users[email]['name']
             session['ip_address'] = get_ip()
+            print(session['ip_address'])
             session['user_agent'] = get_user_agent()
-            session['last_login'] = datetime.datetime.now(pytz.timezone('US/Eastern')).strftime('%Y-%m-%d %H:%M:%S.%f')
+            session['last_login'] = datetime.datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%Y-%m-%d %H:%M:%S.%f')
             verification_code = random.randint(100000, 999999)
             session['verification_code']=verification_code
             listofasnandcountrycode=getasn_fromip(session['ip_address'])
@@ -186,7 +187,7 @@ def login():
                 session['logged_in']=True
                 return redirect('/dashboard')
             else:
-                send_email(session.get('verification_code'),session.get('email'))
+                #send_email(session.get('verification_code'),session.get('email'))
                 session['logged_in']=False
                 return redirect('/twofactor')
     return render_template('login.html', error=error)
