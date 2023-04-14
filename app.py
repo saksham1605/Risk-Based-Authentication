@@ -172,15 +172,17 @@ def login():
             # Store the user details in the session
             session['email'] = email
             session['name'] = users[email]['name']
-            session['ip_address'] = get_ip()
-            print(session['ip_address'])
+            ip=get_ip()
+            session['ip_address'] = ip
+            print(ip)
             session['user_agent'] = get_user_agent()
-            session['last_login'] = datetime.datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%Y-%m-%d %H:%M:%S.%f')
+            lastlogin=datetime.datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%Y-%m-%d %H:%M:%S.%f')
+            session['last_login'] = lastlogin
             verification_code = random.randint(100000, 999999)
             session['verification_code']=verification_code
             listofasnandcountrycode=getasn_fromip(session['ip_address'])
             browsername,osname,devicetype=parse_useragent(session['user_agent'])
-            dataframe=getdataframe(asn=listofasnandcountrycode[0],browsername=browsername,country=listofasnandcountrycode[1],devicetype=devicetype,ip=session['ip_address'],loginsuccessfull=True,osname=osname,timestamp=session['last_login'])
+            dataframe=getdataframe(asn=listofasnandcountrycode[0],browsername=browsername,country=listofasnandcountrycode[1],devicetype=devicetype,ip=ip,loginsuccessfull=True,osname=osname,timestamp=lastlogin)
             model=load_picklefile()[2]
             risk=model.predict(dataframe)
             if risk[0]==0:
