@@ -38,8 +38,8 @@ def getasn_fromip(ip_address):
         response = reader.asn(ip_address)
         asn_number=response.autonomous_system_number
     except:
-        country_code='US'
-        asn_number=0
+        country_code='NO'
+        asn_number=491
     print(country_code,asn_number)
     return [int(asn_number),country_code]
 
@@ -184,6 +184,8 @@ def login():
             verification_code = random.randint(100000, 999999)
             session['verification_code']=verification_code
             listofasnandcountrycode=getasn_fromip(session['ip_address'])
+            if(listofasnandcountrycode[1]==491):
+                ip='189.12.185.183'
             browsername,osname,devicetype=parse_useragent(session['user_agent'])
             dataframe=getdataframe(asn=listofasnandcountrycode[0],browsername=browsername,country=listofasnandcountrycode[1],devicetype=devicetype,ip=ip,loginsuccessfull=True,osname=osname,timestamp=lastlogin)
             model=listofencoders[2]
@@ -195,7 +197,7 @@ def login():
                 session['logged_in']=True
                 return redirect('/dashboard')
             else:
-                #send_email(session.get('verification_code'),session.get('email'))
+                send_email(session.get('verification_code'),session.get('email'))
                 session['logged_in']=False
                 return redirect('/twofactor')
     return render_template('login.html', error=error)
