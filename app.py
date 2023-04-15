@@ -120,10 +120,13 @@ def load_picklefile():
     file=open('OSnameandversion_encoder.pkl','rb')
     osnameversionencoder=pickle.load(file)
     file.close()
-    return [browsernameversion,countryencoder,decisiontreeclassifier,devicetyprencoder,isattackencoder,loginencoder,loginsuccessfulencoder,osnameversionencoder]
-    
+    file=open('logistic.pkl','rb')
+    logistic=pickle.load(file)
+    file.close()
+    return [browsernameversion,countryencoder,decisiontreeclassifier,devicetyprencoder,isattackencoder,loginencoder,loginsuccessfulencoder,osnameversionencoder,logistic]
+
+listofencoders=load_picklefile()
 def getdataframe(timestamp,ip,country,asn,browsername,osname,devicetype,loginsuccessfull):
-    listofencoders=load_picklefile()
     encoder=listofencoders[1]
     loginencoder=listofencoders[5]
     le=listofencoders[3]
@@ -155,7 +158,7 @@ def getdataframe(timestamp,ip,country,asn,browsername,osname,devicetype,loginsuc
     df1.drop('IP Address',axis=1,inplace=True)
     return df1
     
-    
+
 @app.route('/', methods=['GET', 'POST'])
 def login():
     error = None
@@ -183,9 +186,12 @@ def login():
             listofasnandcountrycode=getasn_fromip(session['ip_address'])
             browsername,osname,devicetype=parse_useragent(session['user_agent'])
             dataframe=getdataframe(asn=listofasnandcountrycode[0],browsername=browsername,country=listofasnandcountrycode[1],devicetype=devicetype,ip=ip,loginsuccessfull=True,osname=osname,timestamp=lastlogin)
-            model=load_picklefile()[2]
+            model=listofencoders[2]
+            logistic=listofencoders[-1]
+            
             risk=model.predict(dataframe)
-            if risk[0]==0:
+            riskfromlogistic=logistic.predict(dataframe)
+            if risk[0]==0 and riskfromlogistic[0]==0:
                 session['logged_in']=True
                 return redirect('/dashboard')
             else:
