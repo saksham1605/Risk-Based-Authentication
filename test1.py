@@ -3,7 +3,7 @@ import random
 from bs4 import BeautifulSoup
 
 # open file with proxy list
-with open('proxy-list.txt', 'r') as f:
+with open('http_proxies.txt', 'r') as f:
     proxies = [line.strip() for line in f]
 
 # website url to visit
@@ -19,6 +19,6 @@ for proxy in proxies:
         html = response.text
         # print the formatted HTML
         print(BeautifulSoup(html, 'html.parser').prettify())
-    except:
-        print()
+    except Exception as e:
+        print(e)
 
