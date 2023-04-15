@@ -3,26 +3,29 @@
 <head>
 	<title>Dashboard</title>
 	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 		body {
-			font-family: 'Montserrat', sans-serif;
-			background: radial-gradient(circle, rgba(230,245,245,1) 0%, rgba(187,232,240,1) 40%, rgba(141,208,219,1) 100%);
-			background-size: cover;
-			background-attachment: fixed;
+			font-family: 'Poppins', sans-serif;
+			/* background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(100,43,115,1) 0%, rgba(4,0,4,1) 90% ); */
+			background-image: linear-gradient( 134.6deg,  rgba(201,37,107,1) 15.4%, rgba(116,16,124,1) 74.7% );
+			height: 100vh;
+			width: 100vw;
 		}
 		h1 {
 			color: #fff;
-			font-size: 3em;
+			font-size: 3.5em;
 			text-align: center;
 			margin-top: 50px;
 			text-shadow: 2px 2px #333;
 		}
 		.container {
-			background-color: rgba(255, 255, 255, 0.8);
+			background-color: rgba(255, 255, 255, 0.95);
 			padding: 20px;
-			margin: 50px auto;
+			margin: 75px auto;
 			max-width: 600px;
 			border-radius: 20px;
-			box-shadow: 0 0 10px rgba(0,0,0,0.1);
+			/* box-shadow: 0 0 10px rgba(0,0,0,0.1); */
+			box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 			text-align: center;
 		}
 		.btn {
@@ -55,13 +58,13 @@
 	</style>
 </head>
 <body>
-	<h1>Welcome to the dashboard!</h1>
+	<h1>Welcome to the Dashboard!</h1>
 	<div class="container">
-		<p>Hello <span style="color: #ff69b4;">{{name}}</span></p>
-		<p>Email: <span style="color: #ff69b4;">{{email}}</span></p>
-		<p>IP Address: <span style="color: #ff69b4;">{{ip_address}}</span></p>
-		<p>User Agent: <span style="color: #ff69b4;">{{user_agent}}</span></p>
-		<p>Last Login: <span style="color: #ff69b4;">{{last_login}}</span></p>
+		<p>Hello <span style="color: #4158D0;">{{name}}</span> !</p>
+		<p>Email: <span style="color: #4158D0;">{{email}}</span></p>
+		<p>IP Address: <span style="color: #4158D0;">{{ip_address}}</span></p>
+		<p>User Agent: <span style="color: #4158D0;">{{user_agent}}</span></p>
+		<p>Last Login: <span style="color: #4158D0;">{{last_login}}</span></p>
 		<a class="btn" href="/logout">Logout</a>
 	</div>
 </body>
